@@ -1,6 +1,11 @@
 <?php
 namespace Yilar\Traits;
 
+/**
+ * A generic singleton trait.
+ *
+ * @author Jens Riisom Schultz <ibber_of_crew42@hotmail.com>
+ */
 trait Singleton {
 	/**
 	 * Get the singleton instance.
