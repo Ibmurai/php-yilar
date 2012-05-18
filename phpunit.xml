@@ -1,0 +1,24 @@
+<phpunit backupGlobals="true"
+         backupStaticAttributes="false"
+         cacheTokens="true"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+		 verbose="true"
+         strict="true">
+	<testsuites>
+		<testsuite name="Yilar Test Suite">
+			<directory suffix=".php" phpVersion="5.4.0" phpVersionOperator=">=">./test</directory>
+			<exclude>./test/BaseTest.php</exclude>
+		</testsuite>
+	</testsuites>
+	<logging>
+		<!--log type="coverage-text"
+		     target="php://stdout"
+		     showUncoveredFiles="true"
+		     lowUpperBound="10"
+		     highLowerBound="90"
+		/-->
+	</logging>
+</phpunit>
