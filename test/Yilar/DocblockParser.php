@@ -1,7 +1,8 @@
 <?php
 namespace Yilar\Test;
 require_once __DIR__ . '/../../src/Yilar/Autoloader.php';
-use Yilar;
+require_once __DIR__ . '/BaseTest.php';
+//use Yilar\DocblockParser;
 /**
  * Test the docblock parser.
  *
@@ -9,23 +10,14 @@ use Yilar;
  *
  * @runInSeparateProcess
  */
-class DocblockParser extends \PHPUnit_Framework_TestCase {
-	/**
-	 * Register the Yilar autoloader, before running any tests.
-	 *
-	 * @return null
-	 */
-	public static function setUpBeforeClass() {
-		Yilar\Autoloader::register();
-	}
-
+class DocblockParser extends BaseTest {
 	/**
 	 * @covers Yilar\DocblockParser::getInstance
 	 *
 	 * @return null
 	 */	
 	public function testGetInstance() {
-		$this->assertInstanceOf('Yilar\DocblockParser', Yilar\DocblockParser::getInstance());
+		$this->assertInstanceOf('Yilar\DocblockParser', \Yilar\DocblockParser::getInstance());
 	}
 	
 	/**
@@ -38,7 +30,7 @@ class DocblockParser extends \PHPUnit_Framework_TestCase {
 	 * @return null
 	 */
 	public function testParseDocblock($docblock, array $expected) {
-		$properties = Yilar\DocblockParser::getInstance()->parse($docblock);
+		$properties = \Yilar\DocblockParser::getInstance()->parse($docblock);
 	
 		$this->assertInternalType('array', $properties);
 		
@@ -88,7 +80,7 @@ class DocblockParser extends \PHPUnit_Framework_TestCase {
 	 * @return null
 	 */
 	public function testGetDocblock($class) {
-		$docblock = Yilar\DocblockParser::getInstance()->getDocblock($class);
+		$docblock = \Yilar\DocblockParser::getInstance()->getDocblock($class);
 		
 		$this->assertThat(
 			$docblock,
