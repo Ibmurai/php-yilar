@@ -1,7 +1,8 @@
+<!-- watch -n 10 "/opt/local/bin/php54 /opt/local/bin/phpunit | growlnotify \"php-yilar unit test\"" -->
 <phpunit backupGlobals="true"
          backupStaticAttributes="false"
          cacheTokens="true"
-         colors="true"
+         colors="false"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
@@ -9,8 +10,8 @@
          strict="true">
 	<testsuites>
 		<testsuite name="Yilar Test Suite">
-			<directory suffix=".php" phpVersion="5.4.0" phpVersionOperator=">=">./test</directory>
-			<exclude>./test/BaseTest.php</exclude>
+			<directory suffix=".php" phpVersion="5.4.0" phpVersionOperator="&gt;=">test</directory>
+			<exclude>test/fixture</exclude>
 		</testsuite>
 	</testsuites>
 	<logging>
