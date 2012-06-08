@@ -35,11 +35,12 @@ class DocblockParser extends BaseTest {
 		$this->assertInternalType('array', $properties);
 		
 		$i = 0;
-		foreach($properties as $property) {
+		foreach($properties as $name => $property) {
 			$this->assertInstanceOf('Yilar\Property', $property);
 			$this->assertEquals($expected[$i][0], $property->name);
 			$this->assertEquals($expected[$i][1], $property->access);
 			$this->assertEquals($expected[$i][2], $property->type);
+			$this->assertEquals($property->name, $name);
 			$i++;
 		}
 	}

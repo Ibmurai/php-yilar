@@ -23,7 +23,7 @@ class DocblockParser {
 		
 		$i = 0;
 		foreach ($matches['name'] as $name) {
-			$result[] = new Property($name, $matches['access'][$i], $matches['type'][$i]);
+			$result[$name] = new Property($name, $matches['access'][$i], $matches['type'][$i]);
 			
 			$i++;
 		}
@@ -34,11 +34,22 @@ class DocblockParser {
 	/**
 	 * Get the docblock for a given class.
 	 *
+	 * @param string $className The name of the class to get the docblock for.
+	 *
 	 * @return string The docblock.
 	 */
 	public function getDocblock($className) {
 		$reflection = new \ReflectionClass($className);
 		
 		return $reflection->getDocComment();
+	}
+
+	/**
+	 * Parse the docblock for a given class.
+	 *
+	 * @return Yilar\Property[] An array of the annotated properties.
+	 */
+	public function parseClass($className) {
+		return $this->parse($this->getDocblock($className));
 	}
 }
