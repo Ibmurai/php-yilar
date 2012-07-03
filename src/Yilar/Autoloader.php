@@ -36,7 +36,7 @@ class Autoloader {
 	public static function register() {
 		spl_autoload_register(array(self::getInstance(), 'autoload'));
 	}
-	
+
 	/**
 	 * Unregister the autoloader.
 	 *

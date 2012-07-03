@@ -10,18 +10,18 @@ trait Singleton {
 	/**
 	 * Get the singleton instance.
 	 *
-	 * @return object
+	 * @return static
 	 */
 	public static function getInstance() {
-		static $instance;
-		
+		static $instance = null;
+
 		if (!isset($instance)) {
-			$instance = new self();
+			$instance = new static();
 		}
-		
+
 		return $instance;
 	}
-	
+
 	/**
 	 * Make the constructor private.
 	 *

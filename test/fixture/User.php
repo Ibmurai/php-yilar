@@ -19,7 +19,3 @@ class User {
 
 	use \Yilar\Traits\Properties;
 }
-
-class Lol {
-	use \Yilar\Traits\Properties;
-}
