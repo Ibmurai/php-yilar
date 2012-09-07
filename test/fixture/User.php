@@ -13,9 +13,9 @@ namespace Yilar\Test;
  * @author Jens Riisom Schultz <ibber_of_crew42@hotmail.com>
  */
 class User {
+	use \Yilar\Traits\Properties;
+
 	public function __construct($id) {
 		$this->id = $id;
 	}
-
-	use \Yilar\Traits\Properties;
 }
