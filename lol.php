@@ -11,6 +11,7 @@ $u = new User(44242);
 $u->name = 42.0;
 $u->age = 42;
 $u->height = 2;
+$u->fingerLengths = ['11', 16, 42.0];
 
 var_dump($u->toArray());
 

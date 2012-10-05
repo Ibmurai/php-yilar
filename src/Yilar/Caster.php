@@ -44,7 +44,7 @@ class Caster {
 				$val = $this->cast(substr($type, 0, -2), $val);
 			}
 
-			return $val;
+			return $arr;
 		}
 
 		// Keywords and class names

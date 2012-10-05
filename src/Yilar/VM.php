@@ -2,7 +2,7 @@
 namespace Yilar;
 
 /**
- * Description of VM
+ * Don't worry about it.
  *
  * @author Jens Riisom Schultz <jers@fynskemedier.dk>
  */
@@ -64,6 +64,8 @@ class VM {
 	 * @param Property $property The property to get the value of.
 	 *
 	 * @return mixed The value of the property.
+	 *
+	 * @todo Enforce write only!
 	 */
 	public function getValue($object, Property $property) {
 		$key = spl_object_hash($object);
@@ -83,6 +85,8 @@ class VM {
 	 * @param mixed    $value    The value to set.
 	 *
 	 * @throws CastingException If the value cannot be cast as the given type. Or the type is bogus.
+	 *
+	 * @todo Enforce read only!
 	 */
 	public function setValue($object, Property $property, $value) {
 		$key = spl_object_hash($object);
