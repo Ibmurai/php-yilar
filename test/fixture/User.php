@@ -9,6 +9,7 @@ namespace Yilar\Test;
  * @property       string  $name      The name of the user.
  * @property       boolean $hetero    True if the user is hetero sexual.
  * @property       integer $age       The age, in years, of the user.
+ * @property       float   $height    The height, in centimeters, of the user.
  *
  * @author Jens Riisom Schultz <ibber_of_crew42@hotmail.com>
  */

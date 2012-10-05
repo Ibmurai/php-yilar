@@ -5,6 +5,10 @@ namespace Yilar;
  * Represents a parsed @property annotation.
  *
  * @author Jens Riisom Schultz <ibber_of_crew42@hotmail.com>
+ *
+ * @property-read string $name   The name.
+ * @property-read string $access The access level. (read, write or the empty string for both)
+ * @property-read string $type   The type.
  */
 class Property {
 	/**
