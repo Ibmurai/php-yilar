@@ -1,6 +1,6 @@
 <?php
 namespace Yilar\Traits;
-use Yilar\Exception;
+
 /**
  * This trait will make all @property declarations on a class accessible and type safe.
  *
@@ -12,8 +12,10 @@ trait Properties {
 	 *
 	 * @return null
 	 */
-	private function _getProperty($name) {
+	private function _getProperty($name, $full = false) {
 		static $properties = null;
+
+		if ($full) return $properties;
 
 		if ($properties === null) {
 			$properties = \Yilar\DocblockParser::getInstance()->parseClass(__CLASS__);
@@ -43,13 +45,34 @@ trait Properties {
 	private function _getOrSetValue($name, $value = null) {
 		static $values = [];
 
+		if (!isset($values[spl_object_hash($this)])) {
+			$values[spl_object_hash($this)] = [];
+		}
+
+		$vals = &$values[spl_object_hash($this)];
+
 		if ($value === null) {
-			return isset($values[$name]) ? $values[$name] : null;
+			return isset($vals[$name]) ? $vals[$name] : null;
 		} else {
-			$values[$name] = $value;
+			$vals[$name] = $value;
 		}
 
 		return null;
+	}
+
+	/**
+	 * Get a hashed array of all properties and values.
+	 *
+	 * @return array
+	 */
+	public function toArray() {
+		$res = [];
+		
+		foreach ($this->_getProperty(null, true) as $prop) {
+			$res[$prop->name] = $this->_getOrSetValue($prop->name);
+		}
+
+		return $res;
 	}
 
 	/**

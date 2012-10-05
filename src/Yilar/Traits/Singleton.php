@@ -12,7 +12,7 @@ trait Singleton {
 	 *
 	 * @return static
 	 */
-	public static function getInstance() {
+	final public static function getInstance() {
 		static $instance = null;
 
 		if (!isset($instance)) {
@@ -27,5 +27,5 @@ trait Singleton {
 	 *
 	 * @return void
 	 */
-	private function __construct() {}
+	final private function __construct() {}
 }

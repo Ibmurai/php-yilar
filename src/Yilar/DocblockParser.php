@@ -14,7 +14,7 @@ class DocblockParser {
 	 *
 	 * @param string $docblock The docblock to parse.
 	 *
-	 * @return Yilar\Property[] An array of the annotated properties.
+	 * @return Property[] An array of the annotated properties.
 	 */
 	public function parse($docblock) {
 		preg_match_all('/@property(?:-(?<access>read|write))?\s+(?:(?<type>[^\s]+)\s+)\$(?<name>[^\s]+)/ms', $docblock, $matches);
@@ -27,7 +27,7 @@ class DocblockParser {
 			
 			$i++;
 		}
-		
+	
 		return $result;
 	}
 	
@@ -47,7 +47,7 @@ class DocblockParser {
 	/**
 	 * Parse the docblock for a given class.
 	 *
-	 * @return Yilar\Property[] An array of the annotated properties.
+	 * @return Property[] An array of the annotated properties.
 	 */
 	public function parseClass($className) {
 		return $this->parse($this->getDocblock($className));
