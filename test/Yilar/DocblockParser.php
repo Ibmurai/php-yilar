@@ -1,6 +1,5 @@
 <?php
 namespace Yilar\Test;
-require_once __DIR__ . '/../../src/Yilar/Autoloader.php';
 require_once __DIR__ . '/BaseTest.php';
 //use Yilar\DocblockParser;
 /**

@@ -17,6 +17,9 @@ namespace Yilar\Test;
 class User {
 	use \Yilar\Traits\Properties;
 
+	/**
+	 * @param integer $id The id of the user.
+	 */
 	public function __construct($id) {
 		$this->id = $id;
 	}

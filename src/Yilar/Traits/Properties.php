@@ -50,8 +50,32 @@ trait Properties {
 	public function __set($name, $value) {
 		$vm = VM::getInstance();
 
-		return $vm->setValue($this, $vm->getProperty($this, $name), $value);
+		$vm->setValue($this, $vm->getProperty($this, $name), $value);
 	}
 
-	/* TODO __isset and __unset */
+	/**
+	 * PHP magic __unset method to unset properties.
+	 *
+	 * @param string $name The name of the property to unset.
+	 *
+	 * @throws Exception If you attempt to access an undefined property.
+	 */
+	public function __unset($name) {
+		$vm = VM::getInstance();
+
+		$vm->setValue($this, $vm->getProperty($this, $name), null);
+	}
+
+	/**
+	 * PHP magic __isset method to check if properties are set using the isset() "function".
+	 *
+	 * @param string $name The name of the property to test.
+	 *
+	 * @throws Exception If you attempt to access an undefined property.
+	 */
+	public function __isset($name) {
+		$vm = VM::getInstance();
+
+		return $vm->getValue($this, $vm->getProperty($this, $name)) !== null;
+	}
 }

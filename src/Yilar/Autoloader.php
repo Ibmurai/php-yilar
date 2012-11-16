@@ -21,8 +21,6 @@ class Autoloader {
 
 	/**
 	 * Overridden constructor, to determine the base autoloading path.
-	 *
-	 * @return null
 	 */
 	private function __construct() {
 		$this->_path = realpath(__DIR__ . '/../') . '/';
@@ -30,8 +28,6 @@ class Autoloader {
 
 	/**
 	 * Register the autoloader.
-	 *
-	 * @return null
 	 */
 	public static function register() {
 		spl_autoload_register(array(self::getInstance(), 'autoload'));
@@ -39,8 +35,6 @@ class Autoloader {
 
 	/**
 	 * Unregister the autoloader.
-	 *
-	 * @return null
 	 */
 	public static function unRegister() {
 		spl_autoload_unregister(array(self::getInstance(), 'autoload'));
@@ -49,7 +43,7 @@ class Autoloader {
 	/**
 	 * The autoloading function.
 	 *
-	 * @return null
+	 * @param string $name The name of the class the autoloader should look for.
 	 */
 	private function autoload($name) {
 		$file = $this->_path . str_replace('\\', '/', $name) . '.php';
