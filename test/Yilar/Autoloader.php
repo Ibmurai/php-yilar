@@ -11,7 +11,7 @@ use Yilar;
  */
 class Autoloader extends \PHPUnit_Framework_TestCase {
 	/**
-	 * @covers Yilar\Autoloader::register
+	 * Test autoloader registration.
 	 */
 	public function testRegister() {
 		$before = count(spl_autoload_functions());
@@ -21,7 +21,7 @@ class Autoloader extends \PHPUnit_Framework_TestCase {
 	}
 	
 	/**
-	 * @covers Yilar\Autoloader::unRegister
+	 * Test autoloader unregistration.
 	 */
 	public function testUnregister() {
 		Yilar\Autoloader::register();

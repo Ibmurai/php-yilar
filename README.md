@@ -11,3 +11,5 @@ TODO
 
   * <notation> for meta data, for example for defining get and set methods
   * Actual database stuff
+  * callback type support - I guess I missed that.
+  * more test coverage

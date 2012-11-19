@@ -12,11 +12,12 @@ require_once __DIR__ . '/BaseTest.php';
  */
 class DocblockParser extends BaseTest {
 	/**
+	 * Test Yilar\DocblockParser::parse
+	 *
 	 * @param string The docblock to run the test on.
 	 * @param array  The expected values of name, access and type in that order.
 	 *
 	 * @dataProvider providerDocblock
-	 * @covers       Yilar\DocblockParser::parse
 	 */
 	public function testParseDocblock($docblock, array $expected) {
 		$properties = \Yilar\DocblockParser::parse($docblock);
@@ -64,8 +65,9 @@ class DocblockParser extends BaseTest {
 	}
 
 	/**
+	 * Test Yilar\DocblockParser::getDocblock
+	 *
 	 * @dataProvider providerClassNames
-	 * @covers       Yilar\DocblockParser::getDocblock
 	 */
 	public function testGetDocblock($class) {
 		$docblock = \Yilar\DocblockParser::getDocblock($class);

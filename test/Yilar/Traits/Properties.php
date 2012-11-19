@@ -12,9 +12,6 @@ require_once __DIR__ . '/../BaseTest.php';
 class Properties extends BaseTest {
 	/**
 	 * Test standard, legal, getting and setting of properties.
-	 *
-	 * @covers Yilar\Traits\Properties::__get
-	 * @covers Yilar\Traits\Properties::__set
 	 */
 	public function testGetSetPropertyValue() {
 		require_once __DIR__ . '/../../fixture/User.php';
@@ -66,8 +63,6 @@ class Properties extends BaseTest {
 
 	/**
 	 * Test unsetting properties.
-	 *
-	 * @covers \Yilar\Traits\Properties\__unset
 	 */
 	public function testUnset() {
 		require_once __DIR__ . '/../../fixture/User.php';
@@ -93,8 +88,6 @@ class Properties extends BaseTest {
 
 	/**
 	 * Test using isset to determine if a property is null.
-	 *
-	 * @covers \Yilar\Traits\Properties\__isset
 	 */
 	public function testIsset() {
 		require_once __DIR__ . '/../../fixture/User.php';
@@ -119,8 +112,6 @@ class Properties extends BaseTest {
 	/**
 	 * Test if writing to a read-only property will throw an exception.
 	 *
-	 * @covers \Yilar\Traits\Properties\__set
-	 *
 	 * @expectedException \Yilar\Exception
 	 */
 	public function testReadOnlyWrite() {
@@ -132,8 +123,6 @@ class Properties extends BaseTest {
 
 	/**
 	 * Test if reading a write-only property will throw an exception.
-	 *
-	 * @covers \Yilar\Traits\Properties\__get
 	 *
 	 * @expectedException \Yilar\Exception
 	 */

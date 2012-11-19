@@ -10,7 +10,7 @@ require_once __DIR__ . '/BaseTest.php';
  */
 class ScopeAnalyzer extends BaseTest {
 	/**
-	 * @covers Yilar\ScopeAnalyzer::isPrivate
+	 * Test Yilar\ScopeAnalyzer::isPrivate
 	 */
 	public function testIsPrivate() {
 
@@ -32,7 +32,7 @@ class ScopeAnalyzer extends BaseTest {
 	}
 
 	/**
-	 * @covers Yilar\ScopeAnalyzer::isSuperPrivate
+	 * Test Yilar\ScopeAnalyzer::isSuperPrivate
 	 */
 	public function testIsSuperPrivate() {
 		$this->assertTrue($this->helperTestIsSuperPrivate());
