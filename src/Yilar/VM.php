@@ -29,7 +29,7 @@ class VM {
 		$key = get_class($object);
 
 		if (!isset($this->_properties[$key])) {
-			$this->_properties[$key] = DocblockParser::getInstance()->parseClass($key);
+			$this->_properties[$key] = DocblockParser::parseClass($key);
 		}
 
 		if (isset($this->_properties[$key][$name])) {
@@ -51,7 +51,7 @@ class VM {
 		$key = get_class($object);
 
 		if (!isset($this->_properties[$key])) {
-			$this->_properties[$key] = DocblockParser::getInstance()->parseClass($key);
+			$this->_properties[$key] = DocblockParser::parseClass($key);
 		}
 
 		return $this->_properties[$key];
@@ -91,6 +91,6 @@ class VM {
 			$this->_values[$key] = [];
 		}
 
-		$this->_values[$key][$property->name] = Caster::getInstance()->cast($property->type, $value);
+		$this->_values[$key][$property->name] = Caster::cast($property->type, $value);
 	}
 }

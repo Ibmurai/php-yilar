@@ -12,13 +12,6 @@ require_once __DIR__ . '/BaseTest.php';
  */
 class DocblockParser extends BaseTest {
 	/**
-	 * @covers Yilar\DocblockParser::getInstance
-	 */
-	public function testGetInstance() {
-		$this->assertInstanceOf('Yilar\DocblockParser', \Yilar\DocblockParser::getInstance());
-	}
-
-	/**
 	 * @param string The docblock to run the test on.
 	 * @param array  The expected values of name, access and type in that order.
 	 *
@@ -26,7 +19,7 @@ class DocblockParser extends BaseTest {
 	 * @covers       Yilar\DocblockParser::parse
 	 */
 	public function testParseDocblock($docblock, array $expected) {
-		$properties = \Yilar\DocblockParser::getInstance()->parse($docblock);
+		$properties = \Yilar\DocblockParser::parse($docblock);
 
 		$this->assertInternalType('array', $properties);
 
@@ -75,7 +68,7 @@ class DocblockParser extends BaseTest {
 	 * @covers       Yilar\DocblockParser::getDocblock
 	 */
 	public function testGetDocblock($class) {
-		$docblock = \Yilar\DocblockParser::getInstance()->getDocblock($class);
+		$docblock = \Yilar\DocblockParser::getDocblock($class);
 
 		$this->assertThat(
 			$docblock,

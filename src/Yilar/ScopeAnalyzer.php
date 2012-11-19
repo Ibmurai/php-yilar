@@ -7,9 +7,7 @@ namespace Yilar;
  *
  * @author Jens Riisom Schultz <jers@fynskemedier.dk>
  */
-class ScopeAnalyzer {
-	use Traits\Singleton;
-
+abstract class ScopeAnalyzer {
 	/**
 	 * Should be called from the magic functions implemented in \Yilar\Traits\Properties.
 	 * Call with ($this, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS))
@@ -19,7 +17,7 @@ class ScopeAnalyzer {
 	 *
 	 * @return boolean True if the function is called one step below a private scope, for the class.
 	 */
-	public function isPrivate($object, array $debugBacktrace) {
+	public static function isPrivate($object, array $debugBacktrace) {
 		return isset($debugBacktrace[1]['class']) && $debugBacktrace[1]['class'] === get_class($object) ? true : false;
 	}
 
@@ -32,7 +30,7 @@ class ScopeAnalyzer {
 	 *
 	 * @return boolean True if the function is called one step below a SUPER private scope, for the class.
 	 */
-	public function isSuperPrivate($object, array $debugBacktrace) {
+	public static function isSuperPrivate($object, array $debugBacktrace) {
 		return isset($debugBacktrace[1]['object']) && $debugBacktrace[1]['object'] === $object ? true : false;
 	}
 }

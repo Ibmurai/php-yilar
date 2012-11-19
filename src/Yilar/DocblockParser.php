@@ -6,9 +6,7 @@ namespace Yilar;
  *
  * @author Jens Riisom Schultz <ibber_of_crew42@hotmail.com>
  */
-class DocblockParser {
-	use Traits\Singleton;
-	
+abstract class DocblockParser {
 	/**
 	 * Parse the given docblock.
 	 *
@@ -16,7 +14,7 @@ class DocblockParser {
 	 *
 	 * @return Property[] An array of the annotated properties.
 	 */
-	public function parse($docblock) {
+	public static function parse($docblock) {
 		preg_match_all('/@property(?:-(?<access>read|write))?\s+(?:(?<type>[^\s]+)\s+)\$(?<name>[^\s]+)/ms', $docblock, $matches);
 		
 		$result = [];
@@ -38,7 +36,7 @@ class DocblockParser {
 	 *
 	 * @return string The docblock.
 	 */
-	public function getDocblock($className) {
+	public static function getDocblock($className) {
 		$reflection = new \ReflectionClass($className);
 		
 		return $reflection->getDocComment();
@@ -49,7 +47,7 @@ class DocblockParser {
 	 *
 	 * @return Property[] An array of the annotated properties.
 	 */
-	public function parseClass($className) {
-		return $this->parse($this->getDocblock($className));
+	public static function parseClass($className) {
+		return self::parse(self::getDocblock($className));
 	}
 }

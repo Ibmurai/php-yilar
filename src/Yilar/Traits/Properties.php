@@ -40,7 +40,7 @@ trait Properties {
 		$vm       = VM::getInstance();
 		$property = $vm->getProperty($this, $name);
 
-		if ($property->access === 'write' && !ScopeAnalyzer::getInstance()->isPrivate($this, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS))) {
+		if ($property->access === 'write' && !ScopeAnalyzer::isPrivate($this, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS))) {
 			throw new Exception("Property, {$property->name}, is write only.");
 		}
 
@@ -59,7 +59,7 @@ trait Properties {
 		$vm       = VM::getInstance();
 		$property = $vm->getProperty($this, $name);
 
-		if ($property->access === 'read' && !ScopeAnalyzer::getInstance()->isPrivate($this, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS))) {
+		if ($property->access === 'read' && !ScopeAnalyzer::isPrivate($this, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS))) {
 			throw new Exception("Property, {$property->name}, is read only.");
 		}
 
@@ -77,7 +77,7 @@ trait Properties {
 		$vm       = VM::getInstance();
 		$property = $vm->getProperty($this, $name);
 
-		if ($property->access === 'read' && !ScopeAnalyzer::getInstance()->isPrivate($this, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS))) {
+		if ($property->access === 'read' && !ScopeAnalyzer::isPrivate($this, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS))) {
 			throw new Exception("Property, {$property->name}, is read only.");
 		}
 
@@ -97,7 +97,7 @@ trait Properties {
 		$vm       = VM::getInstance();
 		$property = $vm->getProperty($this, $name);
 
-		if ($property->access === 'write' && !ScopeAnalyzer::getInstance()->isPrivate($this, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS))) {
+		if ($property->access === 'write' && !ScopeAnalyzer::isPrivate($this, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS))) {
 			throw new Exception("Property, {$property->name}, is write only.");
 		}
 

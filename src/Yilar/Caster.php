@@ -6,9 +6,7 @@ namespace Yilar;
  *
  * @author Jens Riisom Schultz <jers@fynskemedier.dk>
  */
-class Caster {
-	use Traits\Singleton;
-
+abstract class Caster {
 	/**
 	 * Cast the given value to the given type.
 	 *
@@ -22,7 +20,7 @@ class Caster {
 	 *
 	 * Examples of unsupported types:
 	 * "array|bool", "(string[])[]", "(Horse|Rabbit)[]", ...
-	 * 
+	 *
 	 * @link http://www.phpdoc.org/docs/latest/for-users/types.html#abnf
 	 *
 	 * @param string $type
@@ -30,7 +28,7 @@ class Caster {
 	 *
 	 * @throws CastingException If the value cannot be cast as the given type. Or the type is bogus.
 	 */
-	public function cast($type, $value) {
+	public static function cast($type, $value) {
 		// All types are nullable.
 		if ($value === null) {
 			return null;
@@ -38,10 +36,10 @@ class Caster {
 
 		// Arrays of something.
 		if (substr($type, -2) == '[]') {
-			$arr = $this->_castAsArray($value);
+			$arr = self::_castAsArray($value);
 
 			foreach ($arr as &$val) {
-				$val = $this->cast(substr($type, 0, -2), $val);
+				$val = self::cast(substr($type, 0, -2), $val);
 			}
 
 			return $arr;
@@ -50,26 +48,26 @@ class Caster {
 		// Keywords and class names
 		switch ($type) {
 			case 'string':
-				return $this->_castAsString($value);
+				return self::_castAsString($value);
 			case 'integer':
 			case 'int':
-				return $this->_castAsInteger($value);
+				return self::_castAsInteger($value);
 			case 'boolean':
 			case 'bool':
-				return $this->_castAsBoolean($value);
+				return self::_castAsBoolean($value);
 			case 'float':
 			case 'double':
-				return $this->_castAsFloat($value);
+				return self::_castAsFloat($value);
 			case 'object':
-				return $this->_castAsObject($value);
+				return self::_castAsObject($value);
 			case 'array':
-				return $this->_castAsArray($value);
+				return self::_castAsArray($value);
 			case 'resource':
-				return $this->_castAsResource($value);
+				return self::_castAsResource($value);
 			case 'mixed':
 				return $value;
 			default:
-				return $this->_castAsClassInstance($type, $value);
+				return self::_castAsClassInstance($type, $value);
 		}
 	}
 
@@ -87,15 +85,19 @@ class Caster {
 	 *
 	 * @throws CastingException If the value cannot be cast as integer.
 	 */
-	private function _castAsInteger($value) {
+	private static function _castAsInteger($value) {
 		if (is_integer($value)) {
 			return $value;
-		} else if (is_string($value) && preg_match('/^[0-9]+$/', $value)) {
-			return (integer)$value;
-		} else if (is_bool($value)) {
-			return $value ? 1 : 0;
 		} else {
-			throw new CastingException('Value of type, ' . gettype($value) . ', could not be cast as integer.');
+			if (is_string($value) && preg_match('/^[0-9]+$/', $value)) {
+				return (integer)$value;
+			} else {
+				if (is_bool($value)) {
+					return $value ? 1 : 0;
+				} else {
+					throw new CastingException('Value of type, ' . gettype($value) . ', could not be cast as integer.');
+				}
+			}
 		}
 	}
 
@@ -114,17 +116,19 @@ class Caster {
 	 *
 	 * @throws CastingException If the value cannot be cast as string.
 	 */
-	private function _castAsString($value) {
+	private static function _castAsString($value) {
 		if (is_string($value) || is_integer($value) || (is_object($value) && method_exists($value, '__toString'))) {
 			return (string)$value;
-		} else if (is_float($value)) {
-			if ($value - floor($value) === 0.0) {
-				return sprintf('%.1f', $value);
-			} else {
-				return (string)$value;
-			}
 		} else {
-			throw new CastingException('Value of type, ' . gettype($value) . ', could not be cast as string.');
+			if (is_float($value)) {
+				if ($value - floor($value) === 0.0) {
+					return sprintf('%.1f', $value);
+				} else {
+					return (string)$value;
+				}
+			} else {
+				throw new CastingException('Value of type, ' . gettype($value) . ', could not be cast as string.');
+			}
 		}
 	}
 
@@ -140,7 +144,7 @@ class Caster {
 	 *
 	 * @throws CastingException If the value cannot be cast as an array.
 	 */
-	private function _castAsArray($value) {
+	private static function _castAsArray($value) {
 		if (is_array($value)) {
 			return $value;
 		} else {
@@ -162,15 +166,19 @@ class Caster {
 	 *
 	 * @throws CastingException If the value cannot be cast as boolean.
 	 */
-	private function _castAsBoolean($value) {
+	private static function _castAsBoolean($value) {
 		if (is_bool($value)) {
 			return $value;
-		} else if (is_integer($value)) {
-			return $value === 0 ? false : true;
-		} else if (is_string($value)) {
-			return $value === '' ? false : true;
 		} else {
-			throw new CastingException('Value of type, ' . gettype($value) . ', could not be cast as boolean.');
+			if (is_integer($value)) {
+				return $value === 0 ? false : true;
+			} else {
+				if (is_string($value)) {
+					return $value === '' ? false : true;
+				} else {
+					throw new CastingException('Value of type, ' . gettype($value) . ', could not be cast as boolean.');
+				}
+			}
 		}
 	}
 
@@ -189,15 +197,19 @@ class Caster {
 	 *
 	 * @throws CastingException If the value cannot be cast as a float.
 	 */
-	private function _castAsFloat($value) {
+	private static function _castAsFloat($value) {
 		if (is_float($value)) {
 			return $value;
-		} else if (is_integer($value)) {
-			return (float)$value;
-		} else if (is_string($value) && preg_match('/^[0-9]*\.?[0-9]+$/', $value)) {
-			return (float)$value;
 		} else {
-			throw new CastingException('Value of type, ' . gettype($value) . ', could not be cast as float.');
+			if (is_integer($value)) {
+				return (float)$value;
+			} else {
+				if (is_string($value) && preg_match('/^[0-9]*\.?[0-9]+$/', $value)) {
+					return (float)$value;
+				} else {
+					throw new CastingException('Value of type, ' . gettype($value) . ', could not be cast as float.');
+				}
+			}
 		}
 	}
 
@@ -213,7 +225,7 @@ class Caster {
 	 *
 	 * @throws CastingException If the value cannot be cast as an object.
 	 */
-	private function _castAsObject($value) {
+	private static function _castAsObject($value) {
 		if (is_object($value)) {
 			return $value;
 		} else {
@@ -233,7 +245,7 @@ class Caster {
 	 *
 	 * @throws CastingException If the value cannot be cast as a resource.
 	 */
-	private function _castAsResource($value) {
+	private static function _castAsResource($value) {
 		if (is_resource($value)) {
 			return $value;
 		} else {
@@ -255,7 +267,7 @@ class Caster {
 	 * @throws CastingException If the value cannot be cast as an instance of the given class or a
 	 *                          child class.
 	 */
-	private function _castAsClassInstance($class, $value) {
+	private static function _castAsClassInstance($class, $value) {
 		if ($value instanceof $class) {
 			return $value;
 		} else {

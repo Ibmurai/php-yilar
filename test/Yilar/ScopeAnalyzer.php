@@ -10,13 +10,6 @@ require_once __DIR__ . '/BaseTest.php';
  */
 class ScopeAnalyzer extends BaseTest {
 	/**
-	 * @covers Yilar\ScopeAnalyzer::getInstance
-	 */
-	public function testGetInstance() {
-		$this->assertInstanceOf('Yilar\ScopeAnalyzer', \Yilar\ScopeAnalyzer::getInstance());
-	}
-
-	/**
 	 * @covers Yilar\ScopeAnalyzer::isPrivate
 	 */
 	public function testIsPrivate() {
@@ -35,7 +28,7 @@ class ScopeAnalyzer extends BaseTest {
 	 * @return boolean
 	 */
 	public function helperTestIsPrivate() {
-		return \Yilar\ScopeAnalyzer::getInstance()->isPrivate($this, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
+		return \Yilar\ScopeAnalyzer::isPrivate($this, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
 	}
 
 	/**
@@ -56,6 +49,6 @@ class ScopeAnalyzer extends BaseTest {
 	 * @return boolean
 	 */
 	public function helperTestIsSuperPrivate() {
-		return \Yilar\ScopeAnalyzer::getInstance()->isSuperPrivate($this, debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT));
+		return \Yilar\ScopeAnalyzer::isSuperPrivate($this, debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT));
 	}
 }
