@@ -23,4 +23,14 @@ class User {
 	public function __construct($id) {
 		$this->id = $id;
 	}
+
+	/**
+	 * A helper to provide a calling context for the testIsSuperPrivate test.
+	 *
+	 * @return boolean
+	 */
+	public function helperTestIsPrivate() {
+		$notSoPrivate = new \Yilar\Test\ScopeAnalyzer();
+		return $notSoPrivate->helperTestIsPrivate();
+	}
 }

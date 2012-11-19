@@ -1,10 +1,13 @@
 php-yilar
 =========
 
-php-yilar is another active record framework.
+php-yilar was supposed to be another active record framework.
+
+But for now it is a property frameword.
+
 
 TODO
 ----
 
-  * Enforce read-/write-only
   * <notation> for meta data, for example for defining get and set methods
+  * Actual database stuff

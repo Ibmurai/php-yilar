@@ -1,7 +1,8 @@
 <?php
 namespace Yilar\Test;
+
 require_once __DIR__ . '/BaseTest.php';
-//use Yilar\DocblockParser;
+
 /**
  * Test the docblock parser.
  *
@@ -12,29 +13,25 @@ require_once __DIR__ . '/BaseTest.php';
 class DocblockParser extends BaseTest {
 	/**
 	 * @covers Yilar\DocblockParser::getInstance
-	 *
-	 * @return null
-	 */	
+	 */
 	public function testGetInstance() {
 		$this->assertInstanceOf('Yilar\DocblockParser', \Yilar\DocblockParser::getInstance());
 	}
-	
+
 	/**
 	 * @param string The docblock to run the test on.
 	 * @param array  The expected values of name, access and type in that order.
 	 *
 	 * @dataProvider providerDocblock
 	 * @covers       Yilar\DocblockParser::parse
-	 *
-	 * @return null
 	 */
 	public function testParseDocblock($docblock, array $expected) {
 		$properties = \Yilar\DocblockParser::getInstance()->parse($docblock);
-	
+
 		$this->assertInternalType('array', $properties);
-		
+
 		$i = 0;
-		foreach($properties as $name => $property) {
+		foreach ($properties as $name => $property) {
 			$this->assertInstanceOf('Yilar\Property', $property);
 			$this->assertEquals($expected[$i][0], $property->name);
 			$this->assertEquals($expected[$i][1], $property->access);
@@ -43,7 +40,7 @@ class DocblockParser extends BaseTest {
 			$i++;
 		}
 	}
-	
+
 	/**
 	 * Provides test data for ::testGetDocblock.
 	 *
@@ -54,7 +51,7 @@ class DocblockParser extends BaseTest {
 			['/** @property string  $lol */', [['lol', '', 'string']]],
 			['/** @property integer $inty */', [['inty', '', 'integer']]],
 			['/** @property boolean $bool */', [['bool', '', 'boolean']]],
-			['/** @property array   $arr */' , [['arr', '', 'array']]],
+			['/** @property array   $arr */', [['arr', '', 'array']]],
 			['/**
 			   * @property       array   $arr
 			   * @property       string  $banana
@@ -64,7 +61,7 @@ class DocblockParser extends BaseTest {
 			   * @author Mistah Lawls <lol@lol.lol>
 			   */',
 				[
-					['arr', '', 'array'], 
+					['arr', '', 'array'],
 					['banana', '', 'string'],
 					['id', 'read', 'integer'],
 					['writeMe', 'write', 'string'],
@@ -72,16 +69,14 @@ class DocblockParser extends BaseTest {
 			],
 		];
 	}
-	
+
 	/**
 	 * @dataProvider providerClassNames
 	 * @covers       Yilar\DocblockParser::getDocblock
-	 *
-	 * @return null
 	 */
 	public function testGetDocblock($class) {
 		$docblock = \Yilar\DocblockParser::getInstance()->getDocblock($class);
-		
+
 		$this->assertThat(
 			$docblock,
 			$this->logicalOr(
@@ -90,7 +85,7 @@ class DocblockParser extends BaseTest {
 			)
 		);
 	}
-	
+
 	/**
 	 * Provides test data for ::testGetDocblock.
 	 *
