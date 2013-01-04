@@ -39,10 +39,6 @@ class Property {
 	 * @return string The value of the property.
 	 */
 	public function __get($name) {
-		if (!isset($this->_values[$name])) {
-			throw new Exception(__CLASS__ . " has no property named $name.");
-		} else {
-			return $this->_values[$name];
-		}
+		return $this->_values[$name];
 	}
 }

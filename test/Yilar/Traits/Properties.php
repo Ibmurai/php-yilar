@@ -67,12 +67,12 @@ class Properties extends BaseTest {
 	public function testUnset() {
 		require_once __DIR__ . '/../../fixture/User.php';
 
-		$user = new User(4242);
-		$user->height = 0.42;
-		$user->hetero = true;
+		$user                = new User(4242);
+		$user->height        = 0.42;
+		$user->hetero        = true;
 		$user->fingerLengths = [0.42];
-		$user->age = 42;
-		$user->name = "Spectacular herring";
+		$user->age           = 42;
+		$user->name          = "Spectacular herring";
 		unset($user->height);
 		unset($user->hetero);
 		unset($user->fingerLengths);
@@ -92,12 +92,12 @@ class Properties extends BaseTest {
 	public function testIsset() {
 		require_once __DIR__ . '/../../fixture/User.php';
 
-		$user = new User(4242);
-		$user->height = 0.42;
-		$user->hetero = true;
+		$user                = new User(4242);
+		$user->height        = 0.42;
+		$user->hetero        = true;
 		$user->fingerLengths = [0.42];
-		$user->age = 42;
-		$user->name = "Spectacular herring";
+		$user->age           = 42;
+		$user->name          = "Spectacular herring";
 		unset($user->height);
 		unset($user->hetero);
 		unset($user->fingerLengths);
@@ -117,7 +117,7 @@ class Properties extends BaseTest {
 	public function testReadOnlyWrite() {
 		require_once __DIR__ . '/../../fixture/User.php';
 
-		$user = new User(4242);
+		$user     = new User(4242);
 		$user->id = 11;
 	}
 
@@ -129,7 +129,78 @@ class Properties extends BaseTest {
 	public function testWriteOnlyRead() {
 		require_once __DIR__ . '/../../fixture/User.php';
 
-		$user = new User(4242);
+		$user       = new User(4242);
 		$user->name = $user->writeOnly;
+	}
+
+	/**
+	 * Test that checking if an undefined property isset throws an exception.
+	 *
+	 * @expectedException \Yilar\Exception
+	 */
+	public function testIssetMissingProperty() {
+		require_once __DIR__ . '/../../fixture/User.php';
+
+		$user = new User(4242);
+		isset($user->funky);
+	}
+
+	/**
+	 * Test that checking if a write only property isset throws an exception.
+	 *
+	 * @expectedException \Yilar\Exception
+	 */
+	public function testIssetWriteOnlyProperty() {
+		require_once __DIR__ . '/../../fixture/User.php';
+
+		$user = new User(4242);
+		isset($user->writeOnly);
+	}
+
+	/**
+	 * Test that unsetting a read only property throws an exception.
+	 *
+	 * @expectedException \Yilar\Exception
+	 */
+	public function testUnsetMissingProperty() {
+		require_once __DIR__ . '/../../fixture/User.php';
+
+		$user = new User(4242);
+		unset($user->id);
+	}
+
+	/**
+	 * Test that toArray() returns what is expected.
+	 */
+	public function testToArray() {
+		require_once __DIR__ . '/../../fixture/User.php';
+
+		$user                = new User(4242);
+
+		$this->assertEquals([
+			'id'            => 4242,
+			'writeOnly'     => null,
+			'name'          => null,
+			'age'           => null,
+			'fingerLengths' => null,
+			'height'        => null,
+			'hetero'        => null
+		], $user->toArray());
+
+		$user->name          = 'Horse';
+		$user->age           = 42;
+		$user->fingerLengths = [0.1, 0.2, 0.3, 0.4, 0.1];
+		$user->height        = 42.11;
+		$user->hetero        = false;
+
+		$this->assertEquals([
+			'id'            => 4242,
+			'writeOnly'     => null,
+			'name'          => 'Horse',
+			'age'           => 42,
+			'fingerLengths' => [0.1, 0.2, 0.3, 0.4, 0.1],
+			'height'        => 42.11,
+			'hetero'        => false
+		], $user->toArray());
 	}
 }
