@@ -204,7 +204,7 @@ abstract class Caster {
 			if (is_integer($value)) {
 				return (float)$value;
 			} else {
-				if (is_string($value) && preg_match('/^[0-9]*\.?[0-9]+$/', $value)) {
+				if (is_string($value) && preg_match('/^-?[0-9]*\.?[0-9]+$/', $value)) {
 					return (float)$value;
 				} else {
 					throw new CastingException('Value of type, ' . gettype($value) . ', could not be cast as float.');

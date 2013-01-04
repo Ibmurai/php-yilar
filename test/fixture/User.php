@@ -33,4 +33,13 @@ class User {
 		$notSoPrivate = new \Yilar\Test\ScopeAnalyzer();
 		return $notSoPrivate->helperTestIsPrivate();
 	}
+
+	/**
+	 * PHP magic __toString method.
+	 *
+	 * @return string
+	 */
+	public function __toString() {
+		return "User with id #{$this->id}";
+	}
 }

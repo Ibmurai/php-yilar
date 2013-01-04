@@ -93,4 +93,16 @@ class VM {
 
 		$this->_values[$key][$property->name] = Caster::cast($property->type, $value);
 	}
+
+	/**
+	 * Clears all values for the given object. Is called from __destruct, from the Properties trait, because
+	 * spl_object_hashes may be reused.
+	 *
+	 * @param object $object The object to clear values for.
+	 */
+	public function clearValues($object) {
+		$key = spl_object_hash($object);
+
+		unset($this->_values[$key]);
+	}
 }

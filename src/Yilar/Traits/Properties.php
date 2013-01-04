@@ -103,4 +103,13 @@ trait Properties {
 
 		return $vm->getValue($this, $property) !== null;
 	}
+
+	/**
+	 * PHP magic __destruct method, to tell the vm clear the property values it holds.
+	 */
+	final public function __destruct() {
+		$vm = VM::getInstance();
+
+		$vm->clearValues($this);
+	}
 }
