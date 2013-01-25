@@ -11,7 +11,7 @@ abstract class Caster {
 	 * Cast the given value to the given type.
 	 *
 	 * Types are a subset of phpDocumentor 2's ABNF:
-	 * Classnames and the following keywords are supported:
+	 * Fully qualified classnames and the following keywords are supported:
 	 * "string"|"integer"|"int"|"boolean"|"bool"|"float"|"double"|"object"|"mixed"|"array"|"resource"
 	 * Additionally, single dimensional arrays of the above are supported.
 	 *
@@ -23,8 +23,10 @@ abstract class Caster {
 	 *
 	 * @link http://www.phpdoc.org/docs/latest/for-users/types.html#abnf
 	 *
-	 * @param string $type
-	 * @param mixed  $value
+	 * @param string $type  The type to cast as.
+	 * @param mixed  $value The value to cast.
+	 *
+	 * @return array|boolean|float|integer|mixed|null|object|string|resource The $value cast as $type.
 	 *
 	 * @throws CastingException If the value cannot be cast as the given type. Or the type is bogus.
 	 */
@@ -259,13 +261,12 @@ abstract class Caster {
 	 *  * Actual class instances of the given class or a child class.
 	 * All other values will throw an exception.
 	 *
-	 * @param string $type  The name of the class to cast as.
-	 * @param mixed  $value
+	 * @param string $class The name of the class to cast as.
+	 * @param mixed  $value The value to cast.
 	 *
 	 * @return object The value itself.
 	 *
-	 * @throws CastingException If the value cannot be cast as an instance of the given class or a
-	 *                          child class.
+	 * @throws CastingException If the value cannot be cast as an instance of the given class or a child class.
 	 */
 	private static function _castAsClassInstance($class, $value) {
 		if ($value instanceof $class) {

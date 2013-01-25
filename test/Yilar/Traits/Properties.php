@@ -441,7 +441,6 @@ class Properties extends BaseTest {
 	 */
 	public function testArrayToObject() {
 		require_once __DIR__ . '/../../fixture/MoreTypes.php';
-		require_once __DIR__ . '/../../fixture/User.php';
 
 		$spork = new MoreTypes();
 
@@ -474,5 +473,65 @@ class Properties extends BaseTest {
 		$spork = new MoreTypes();
 
 		$spork->resource = __FILE__;
+	}
+
+	/**
+	 * Test named class assignment.
+	 */
+	public function testNamedClassAssignment() {
+		require_once __DIR__ . '/../../fixture/MoreTypes.php';
+		require_once __DIR__ . '/../../fixture/User.php';
+
+		$spork = new MoreTypes();
+
+		$spork->user = new User(42);
+		$this->assertInstanceOf('\Yilar\Test\User', $spork->user);
+	}
+
+	/**
+	 * Test string to named class conversion.
+	 *
+	 * @expectedException \Yilar\Exception
+	 */
+	public function testStringToNamedClass() {
+		require_once __DIR__ . '/../../fixture/MoreTypes.php';
+
+		$spork = new MoreTypes();
+
+		$spork->user = __FILE__;
+	}
+
+	/**
+	 * Test assigning to an array type property.
+	 */
+	public function testArrayAssignment() {
+		require_once __DIR__ . '/../../fixture/MoreTypes.php';
+
+		$spork = new MoreTypes();
+
+		$spork->array = ['hello', 42, false];
+
+		$this->assertInternalType('array', $spork->array);
+	}
+
+	/**
+	 * Test assigning to a mixed type property.
+	 */
+	public function testMixedAssignment() {
+		require_once __DIR__ . '/../../fixture/MoreTypes.php';
+
+		$spork = new MoreTypes();
+
+		$spork->whatevs = 42;
+		$this->assertInternalType('integer', $spork->whatevs);
+
+		$spork->whatevs = '42';
+		$this->assertInternalType('string', $spork->whatevs);
+
+		$spork->whatevs = false;
+		$this->assertInternalType('boolean', $spork->whatevs);
+
+		$spork->whatevs = 42.1;
+		$this->assertInternalType('float', $spork->whatevs);
 	}
 }
