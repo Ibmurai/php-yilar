@@ -12,7 +12,7 @@ use \Yilar\ScopeAnalyzer;
  */
 trait Properties {
 	/**
-	 * Get a hashed array of all properties and values.
+	 * Get a hashed array of all properties and values, except write only properties.
 	 *
 	 * @return array
 	 */
@@ -21,7 +21,9 @@ trait Properties {
 
 		$res = [];
 		foreach ($vm->getProperties($this) as $property) {
-			$res[$property->name] = $vm->getValue($this, $property);
+			if ($property->access != 'write') {
+				$res[$property->name] = $vm->getValue($this, $property);
+			}
 		}
 
 		return $res;

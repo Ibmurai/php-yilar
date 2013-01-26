@@ -179,7 +179,6 @@ class Properties extends BaseTest {
 
 		$this->assertEquals([
 			'id'            => 4242,
-			'writeOnly'     => null,
 			'name'          => null,
 			'age'           => null,
 			'fingerLengths' => null,
@@ -195,7 +194,6 @@ class Properties extends BaseTest {
 
 		$this->assertEquals([
 			'id'            => 4242,
-			'writeOnly'     => null,
 			'name'          => 'Horse',
 			'age'           => 42,
 			'fingerLengths' => [0.1, 0.2, 0.3, 0.4, 0.1],
