@@ -6,6 +6,8 @@ php-yilar was supposed to be another active record framework.
 But for now it is a property framework.
 
 
+[![Build Status](https://travis-ci.org/Ibmurai/php-yilar.png)](https://travis-ci.org/Ibmurai/php-yilar)
+
 TODO
 ----
 
