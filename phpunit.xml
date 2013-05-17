@@ -1,4 +1,3 @@
-<!-- watch -n 10 "/opt/local/bin/php54 /opt/local/bin/phpunit | growlnotify \"php-yilar unit test\"" -->
 <phpunit backupGlobals="true"
          backupStaticAttributes="false"
          cacheTokens="true"
